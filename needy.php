@@ -1,28 +1,26 @@
 <?php
-// Database connection
-$conn = new mysqli('localhost', 'root', '', 'mudb');
-
-// Check the connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.html");
+    exit();
 }
-
-// SQL query to fetch all the food donation data
-$sql = "SELECT foodname, address, phoneno, quantity FROM donate";
-$result = $conn->query($sql);
-
-// Check if there are any records
-$donationData = [];
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $donationData[] = $row; // Add each row to the donationData array
-    }
-}
-
-// Close the connection
-$conn->close();
-
-// Return the data as JSON
-header('Content-Type: application/json');
-echo json_encode($donationData);
 ?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Food Donations</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Available Food Donations</h1>
+        <div id="food-list"></div>
+    </div>
+
+    <script src="needy.js"></script>
+</body>
+</html>
