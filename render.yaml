@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: food-donation-site
+    env: docker
+    plan: free
+    autoDeploy: true
